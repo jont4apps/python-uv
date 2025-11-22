@@ -1,0 +1,22 @@
+# Enforce consistent line endings in the repository
+# Auto-detect text files and normalize to LF in the repo
+* text=auto
+
+# Explicitly ensure common text files use LF
+*.py text eol=lf
+*.md text eol=lf
+*.rst text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+Dockerfile text eol=lf
+
+# Binary files should be left alone
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary

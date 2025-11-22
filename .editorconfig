@@ -1,0 +1,20 @@
+# EditorConfig helps maintain consistent coding styles and EOL across editors
+root = true
+
+[*.{py,md,yml,yaml,json,rst,txt,pyi,ini,toml}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{Dockerfile,Makefile}]
+end_of_line = lf
+indent_style = space
+
+[*.{png,jpg,jpeg,gif,ico,woff,woff2,ttf}]
+binary = true
