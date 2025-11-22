@@ -74,6 +74,25 @@ logger.info("Logger configured based on environment")
 
 Set `IS_LOCAL=true` in your `.env.local` file for local development.
 
+### Optional: Google Cloud Logging Feature Flag
+
+Google Cloud logging integration is optional and can be enabled explicitly using the
+`TOOLS_GOOGLE_CLOUD_LOGGING` environment variable. By default this integration is
+disabled to avoid pulling heavy Google Cloud libraries into development containers.
+
+Examples:
+
+```bash
+# Enable Google Cloud logging (opt-in)
+export TOOLS_GOOGLE_CLOUD_LOGGING=1
+
+# Disable Google Cloud logging (default)
+export TOOLS_GOOGLE_CLOUD_LOGGING=0
+```
+
+When enabled, set `log_type=LogType.GOOGLE_CLOUD` and provide `project` and optional
+`credentials` when constructing the `Logger`.
+
 ## Advanced Usage
 
 ### Custom Logger Name
