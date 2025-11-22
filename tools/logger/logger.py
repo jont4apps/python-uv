@@ -1,3 +1,4 @@
+# ruff: noqa: EXE002
 import logging
 import sys
 from typing import TYPE_CHECKING
@@ -61,3 +62,31 @@ class Logger(logging.Logger):
 
         handler.setFormatter(formatter)
         self.addHandler(handler)
+
+
+def get_logger(
+    name: str,
+    level: int = logging.INFO,
+    project: str | None = None,
+    credentials: object | None = None,
+    log_type: LogType = LogType.LOCAL,
+) -> Logger:
+    """Create a configured logger.
+
+    Keep the public surface small for PoC use while preserving the
+    existing `Logger` class for compatibility in tests and other
+    callers.
+
+    Returns:
+        Logger: Configured logger instance.
+
+
+    """
+    logger = Logger(
+        name=name,
+        project=project,
+        credentials=credentials,
+        log_type=log_type,
+    )
+    logger.setLevel(level)
+    return logger
