@@ -6,14 +6,12 @@
         "vscode"
     ],
     "workspaceFolder": "/workspace",
-    "features": {
-        "ghcr.io/dhoeric/features/hadolint:1": {}
-    },
+
     "customizations": {
         "vscode": {
             "extensions": [
                 "charliermarsh.ruff",
-                "exiasr.hadolint",
+
                 "kevinrose.vsc-python-indent",
                 "mosapride.zenkaku",
                 "ms-azuretools.vscode-docker",
@@ -32,7 +30,6 @@
         "DISPLAY": "dummy",
         "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
     },
-    "postCreateCommand": "uv sync --frozen",
-    "postStartCommand": "uv run pre-commit install",
+
     "remoteUser": "vscode"
 }
