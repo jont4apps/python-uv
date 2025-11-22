@@ -1,14 +1,14 @@
 # Logger - Flexible Logging System
+````markdown
+# Logger - Console-First Logging
 
-The Logger module provides a flexible logging system that works seamlessly in both local development and cloud environments.
+The Logger module provides a console-first logging system geared for local development and testing.
 
 ## Overview
 
 The Logger extends Python's standard `logging.Logger` with support for:
 
 - **Local development** - Colored, formatted console output
-- **Google Cloud** - Structured JSON logging compatible with Google Cloud Logging
-- **Easy switching** - Change modes with a single parameter
 - **Standard interface** - Uses familiar logging methods (`.info()`, `.error()`, etc.)
 
 ## Basic Usage
@@ -36,62 +36,21 @@ logger.error("An error occurred")
 2038-01-19 03:14:07,000 | ERROR    | __main__:main:10 - An error occurred
 ```
 
-### Google Cloud Logging
-
-For production deployment on Google Cloud, use `LogType.GOOGLE_CLOUD`:
-
-```python
-from tools.logger import Logger, LogType
-
-logger = Logger(
-    __name__,
-    log_type=LogType.GOOGLE_CLOUD,
-    project="my-gcp-project",
-    credentials=credentials  # Optional: pass credentials object
-)
-
-logger.info("Application started in production")
-```
-
-This outputs structured JSON logs that integrate with Google Cloud Logging.
-
 ## Environment-Based Configuration
 
-Use the Settings module to automatically select the appropriate log type:
+Use the Settings module to initialize a local logger for development environments:
 
 ```python
 from tools.config import Settings
 from tools.logger import Logger, LogType
 
 settings = Settings()
-logger = Logger(
-    __name__,
-    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.GOOGLE_CLOUD
-)
+logger = Logger(__name__, log_type=LogType.LOCAL)
 
-logger.info("Logger configured based on environment")
+logger.info("Logger configured for local development")
 ```
 
 Set `IS_LOCAL=true` in your `.env.local` file for local development.
-
-### Optional: Google Cloud Logging Feature Flag
-
-Google Cloud logging integration is optional and can be enabled explicitly using the
-`TOOLS_GOOGLE_CLOUD_LOGGING` environment variable. By default this integration is
-disabled to avoid pulling heavy Google Cloud libraries into development containers.
-
-Examples:
-
-```bash
-# Enable Google Cloud logging (opt-in)
-export TOOLS_GOOGLE_CLOUD_LOGGING=1
-
-# Disable Google Cloud logging (default)
-export TOOLS_GOOGLE_CLOUD_LOGGING=0
-```
-
-When enabled, set `log_type=LogType.GOOGLE_CLOUD` and provide `project` and optional
-`credentials` when constructing the `Logger`.
 
 ## Advanced Usage
 
@@ -158,11 +117,7 @@ from tools.logger import Logger, LogType
 
 # Initialize settings and logger
 settings = Settings()
-logger = Logger(
-    __name__,
-    log_type=LogType.LOCAL if settings.IS_LOCAL else LogType.GOOGLE_CLOUD,
-    project=settings.gcp_project if not settings.IS_LOCAL else None
-)
+logger = Logger(__name__, log_type=LogType.LOCAL)
 
 app = FastAPI()
 
@@ -195,21 +150,12 @@ async def shutdown_event():
 
 ### LocalFormatter
 
-The `LocalFormatter` provides colored, human-readable output for local development:
+The `LocalFormatter` provides colored, human-friendly console output for development and local testing.
 
 - Timestamps in readable format
 - Color-coded log levels
 - Module and line number information
 - Clean formatting for console output
-
-### GoogleCloudFormatter
-
-The `GoogleCloudFormatter` produces structured JSON logs compatible with Google Cloud Logging:
-
-- Structured JSON format
-- Severity levels mapped to Google Cloud standards
-- Automatic metadata inclusion
-- Stack trace formatting for errors
 
 ## Best Practices
 
@@ -269,10 +215,9 @@ except Exception:
 
 ## Configuration
 
-The Logger module uses the following configuration:
+The Logger module is configured for local console output by default:
 
 - **LogType.LOCAL**: Colored console output via `LocalFormatter`
-- **LogType.GOOGLE_CLOUD**: Structured JSON via `GoogleCloudFormatter`
 
 ### Customizing Formatters
 
@@ -293,6 +238,7 @@ class CustomFormatter(LocalFormatter):
 
 Test your logging by checking log output:
 
+```python
 def test_logger(caplog):
     logger = Logger("test")
 
@@ -312,3 +258,6 @@ def test_logger(caplog):
 - [Configuration Guide](config.md) - Use Settings to manage log types
 - [Tracer Guide](tracer.md) - Combine with Timer for performance logging
 - [FastAPI Use Case](../../usecases/fastapi.md) - Logger in web applications
+
+````
+```python

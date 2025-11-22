@@ -1,5 +1,4 @@
 import logging
-import os
 import sys
 from typing import TYPE_CHECKING
 
@@ -41,42 +40,19 @@ class Logger(logging.Logger):
         """
         super().__init__(name=name)
 
+        # Keep `project` and `credentials` parameters for API compatibility.
+        # They are intentionally unused in this console-only implementation.
+        _ = (project, credentials)
+
+        # This project uses standard console logging only. Ignore any
+        # requests to use Google Cloud logging and always configure the
+        # local console formatter. Keeping `LogType.GOOGLE_CLOUD` in the
+        # enum preserves compatibility for callers that may pass it.
         if log_type == LogType.GOOGLE_CLOUD:
-            # Feature flag to allow disabling Google Cloud logging integration
-            # without changing code that requests LogType.GOOGLE_CLOUD.
-            # Default behavior remains enabled unless the env var is explicitly
-            # set to a falsey value (0/false/no).
-            flag = os.getenv("TOOLS_GOOGLE_CLOUD_LOGGING", "0").lower()
-            enabled = flag in ("1", "true", "yes", "on")
-
-            if not enabled:
-                logging.getLogger(__name__).debug(
-                    "Google Cloud logging integration disabled by TOOLS_GOOGLE_CLOUD_LOGGING"
-                )
-            else:
-                try:
-                    import google.cloud.logging
-                    from google.cloud.logging_v2.handlers import StructuredLogHandler
-
-                    from tools.logger import GoogleCloudFormatter
-
-                    client = google.cloud.logging.Client(
-                        project=project, credentials=credentials
-                    )
-                    client.setup_logging()
-
-                    formatter = GoogleCloudFormatter()
-                    handler = StructuredLogHandler(stream=sys.stdout)
-
-                    handler.setFormatter(formatter)
-                    self.addHandler(handler)
-                    return
-                except Exception as exc:  # ImportError or runtime errors
-                    # Fall back to local formatter if Google Cloud libs are missing
-                    logging.getLogger(__name__).warning(
-                        "Google Cloud logging unavailable (%s); falling back to local logger",
-                        exc,
-                    )
+            logging.getLogger(__name__).debug(
+                "LogType.GOOGLE_CLOUD specified but Google Cloud integration "
+                "is disabled; using local console logger instead",
+            )
 
         from tools.logger import LocalFormatter
 
