@@ -1,12 +1,8 @@
 # ruff: noqa: EXE002
 import logging
 import sys
-from typing import TYPE_CHECKING
 
 from tools.logger.type import LogType
-
-if TYPE_CHECKING:
-    from google.auth.credentials import Credentials
 
 
 class Logger(logging.Logger):
@@ -25,7 +21,7 @@ class Logger(logging.Logger):
         self,
         name: str,
         project: str | None = None,
-        credentials: Credentials | None = None,
+        credentials: object | None = None,
         log_type: LogType = LogType.LOCAL,
     ) -> None:
         """Initialize local logger formatter.

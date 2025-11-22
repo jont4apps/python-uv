@@ -1,3 +1,4 @@
+# ruff: noqa: EXE002
 from tools.logger import Logger, LogType
 
 
@@ -26,12 +27,13 @@ class TestGoogleCloudLogger:
 
     def setup_method(self) -> None:
         """Set up logger."""
-        from google.auth.credentials import AnonymousCredentials
-
+        # Avoid importing the real `google` package in the minimal branch.
+        # Passing `credentials=None` verifies the logger handles
+        # `LogType.GOOGLE_CLOUD` gracefully without requiring external deps.
         self.logger = Logger(
             name=__name__,
             project=__name__,
-            credentials=AnonymousCredentials(),
+            credentials=None,
             log_type=LogType.GOOGLE_CLOUD,
         )
 
