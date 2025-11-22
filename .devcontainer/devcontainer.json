@@ -1,35 +1,12 @@
 {
-    "name": "uv",
-    "dockerComposeFile": "../.devcontainer/docker-compose.yml",
-    "service": "vscode",
-    "runServices": [
-        "vscode"
-    ],
+    "image": "mcr.microsoft.com/devcontainers/python:1-3.14",
     "workspaceFolder": "/workspace",
-
     "customizations": {
         "vscode": {
             "extensions": [
-                "charliermarsh.ruff",
-
-                "kevinrose.vsc-python-indent",
-                "mosapride.zenkaku",
-                "ms-azuretools.vscode-docker",
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-toolsai.jupyter",
-                "njpwerner.autodocstring",
-                "redhat.vscode-yaml",
-                "shardulm94.trailing-spaces",
-                "tamasfe.even-better-toml",
-                "yzhang.markdown-all-in-one"
+                "ms-python.python"
             ]
         }
     },
-    "containerEnv": {
-        "DISPLAY": "dummy",
-        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
-    },
-
     "remoteUser": "vscode"
 }
