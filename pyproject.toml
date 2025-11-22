@@ -11,7 +11,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 
 dependencies = [
-    "google-cloud-logging>=3.12.1",
+    # Google Cloud logging removed (console-only logger retained in code)
     "pydantic>=2.12.0",
     "pydantic-settings>=2.11.0",
 ]
@@ -22,8 +22,7 @@ dev = [
     "cookiecutter-data-science>=2.3.0",
     "ipykernel>=7.1.0",
     "jupyter>=1.1.1",
-    "mkdocs-material>=9.6.21",
-    "nox>=2025.5.1",
+    # nox removed for minimal branch
     "pre-commit>=4.3.0",
     "pyright>=1.1.406",
     "pytest>=8.4.2",

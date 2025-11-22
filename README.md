@@ -8,14 +8,14 @@
 [![Versions](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13%20|%203.14%20-green.svg)](https://github.com/a5chin/python-uv)
 ![code coverage](https://raw.githubusercontent.com/a5chin/python-uv/coverage-badge/coverage.svg?raw=true)
 
-[![Docker](https://github.com/a5chin/python-uv/actions/workflows/docker.yml/badge.svg)](https://github.com/a5chin/python-uv/actions/workflows/docker.yml)
-[![Format](https://github.com/a5chin/python-uv/actions/workflows/format.yml/badge.svg)](https://github.com/a5chin/python-uv/actions/workflows/format.yml)
-[![Lint](https://github.com/a5chin/python-uv/actions/workflows/lint.yml/badge.svg)](https://github.com/a5chin/python-uv/actions/workflows/lint.yml)
-[![Test](https://github.com/a5chin/python-uv/actions/workflows/test.yml/badge.svg)](https://github.com/a5chin/python-uv/actions/workflows/test.yml)
+<!-- CI badges removed for the `minimal` branch (CI/workflows are trimmed here). See `main` branch for active CI badges. -->
 
 </div>
 
+
 A production-ready Python development environment template using modern tools: **uv** for blazing-fast package management, **Ruff** for lightning-fast linting and formatting, and **VSCode Dev Containers** for reproducible development environments.
+
+> Note: This is the `minimal` branch — a lightweight variant intended for quick proofs-of-concept (PoCs). It omits heavier development tooling (CI workflows, `nox` tasks, and MkDocs documentation) to keep the repository small and fast. For the full production-ready template (with CI, docs, and the complete toolchain), see the `main` branch.
 
 <div align="center">
 <img src="docs/img/ruff.gif" width="49%"> <img src="docs/img/jupyter.gif" width="49%">
